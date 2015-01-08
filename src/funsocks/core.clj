@@ -22,7 +22,7 @@
                   (ws/send! ch (apply str (reverse m))))})
 
 (defn broadcast [req]
-  (let [msg (:query-string req)]
+  (let [msg (slurp (:body req))]
     (prn "Broadcasting" msg)
     (doall (map (fn [ch] (ws/send! ch msg))
                 @connected-channels))))
